@@ -12,4 +12,14 @@ joblib
 types-PyYAML
 Flask
 Flask-Cors
+python-dotenv
+nltk
+sentence_transformers
+requests
+fastapi
+uvicorn
+elasticsearch
+nest_asyncio
+pymongo
+github
 -e .
