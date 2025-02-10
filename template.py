@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]:%(message)s:')
 
-projet_name="gridPower"
+projet_name="ProjetBdMlops"
 
 list_of_files =[
     ".github/workflows/.gitkeep",
