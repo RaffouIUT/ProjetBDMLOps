@@ -59,11 +59,21 @@ async def add_data():
     # Connexion à l'API GitHub
     g = Github(TOKEN)
 
+    # Connexion à MongoDB
+    client = MongoClient("mongodb://mongodb:27017")
+    db = client["my_database"]
+    collection = db["my_collection"]
+
     # Fonction pour récupérer des dépôts aléatoires
     def get_random_repositories(github, num_repos=1):
         """Récupère un certain nombre de dépôts publics aléatoires distincts."""
         repositories = []
         seen_repos = set()  # Ensemble pour éviter les doublons
+
+        data = list(collection.find())
+        for item in data:
+            seen_repos.add(item["Propriétaire"]+"/"+item["Nom du dépôt"])
+
         search_query = "stars:>1"  # Rechercher des dépôts avec au moins 1 étoile
 
         for repo in github.search_repositories(query=search_query):
@@ -128,14 +138,6 @@ async def add_data():
         data.append(repo_data)
         i+=1
         print(f"Dépôt analysé {i}: {repo_data['Nom du dépôt']}")
-
-    # Sauvegarder les données sur mogodb*
-
-
-    # Connexion à MongoDB
-    client = MongoClient("mongodb://mongodb:27017")
-    db = client["my_database"]
-    collection = db["my_collection"]
 
     # Ajouter la date de sauvegarde
     for repo in data:
