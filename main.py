@@ -13,6 +13,7 @@ from github import Github
 import pymongo
 from pymongo import MongoClient
 import datetime
+from producer import send_message
 
 
 
@@ -148,6 +149,6 @@ async def add_data():
     data_list = list(data)
     item_list = [serialize_doc(item) for item in data_list]
 
+    send_message(item_list)
+
     return{"message":"Données des dépôts sauvegardées sur mongodb","data":item_list}
-
-

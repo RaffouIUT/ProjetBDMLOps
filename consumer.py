@@ -7,7 +7,7 @@ conf = {
 }
 
 consumer = Consumer(conf)
-consumer.subscribe(['test-topic'])
+consumer.subscribe(['topic-new-data'])
 
 try:
     while True:
