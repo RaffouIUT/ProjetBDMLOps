@@ -24,4 +24,3 @@ pymongo
 PyGithub
 markdown
 waitress
--e .

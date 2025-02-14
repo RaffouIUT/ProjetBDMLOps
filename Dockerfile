@@ -5,10 +5,13 @@ FROM python:3.10
 WORKDIR /app
 
 # Copier les fichiers de l'application
-COPY . /app
+COPY requirements.txt requirements.txt
 
 # Installer les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier les fichiers de l'application
+COPY . .
 
 # Exposer le port utilisé par FastAPI
 EXPOSE 8000

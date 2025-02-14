@@ -10,7 +10,7 @@ services:
       - kafka
       - mongodb
       - mlflow
-      - elasticsearch  # Added Elasticsearch dependency
+      - elasticsearch
     environment:
       - KAFKA_BROKER=kafka:9092
       - MONGODB_URI=mongodb://mongodb:27017
@@ -18,7 +18,19 @@ services:
       - ELASTICSEARCH_HOST=http://elasticsearch:9200
     networks:
       - app-network
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload  # THIS STARTS FASTAPI
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  mongodb:
+    image: mongo:5.0
+    container_name: mongodb
+    ports:
+      - "27018:27017"
+    command: ["mongod", "--bind_ip_all", "--noauth"]
+    networks:
+      - app-network
+    volumes:
+      - mongodb_data:/data/db
+
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
@@ -31,14 +43,6 @@ services:
     networks:
       - app-network
 
-
-  mongodb:
-    image: mongo:5.0
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    networks:
-      - app-network
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -72,6 +76,14 @@ services:
     networks:
       - app-network
 
+
+volumes:
+  mongodb_data:
+
 networks:
   app-network:
     driver: bridge
+
+
+
+
