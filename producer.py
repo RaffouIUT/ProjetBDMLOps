@@ -19,6 +19,11 @@ def delivery_report(err, msg):
 
 def send_message(data):
     print(data)
+    # /!\ NOM DU TOPIC
     producer.produce('topic-new-data', json.dumps(data, default=json_serializer).encode('utf-8'), callback=delivery_report)
 
+
+#print("Début de l'exécution")
+#send_message({"message": "Hello, World!", "timestamp": datetime.now()})
+#print("Message envoyé à Kafka")
 producer.flush()

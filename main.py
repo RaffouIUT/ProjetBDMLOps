@@ -14,6 +14,7 @@ import pymongo
 from pymongo import MongoClient
 import datetime
 from producer import send_message
+from consumer import consume_messages
 
 
 
@@ -49,6 +50,13 @@ async def get_data():
     data = list(collection.find())
     item_list = [serialize_doc(item) for item in data]
     return {"message": "test mongosh","data":item_list}
+
+
+@app.get("/consume_kafka_messages")
+async def consume_kafka_data():
+    messages = consume_messages()
+    return {"message": "Messages consommés depuis Kafka", "data": messages}
+
 
 
 @app.get("/add_random_data")
