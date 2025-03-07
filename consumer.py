@@ -1,15 +1,15 @@
 from confluent_kafka import Consumer
 
+conf = {
+    'bootstrap.servers': 'kafka:9092',
+    'group.id': 'my-consumer-group',
+    'auto.offset.reset': 'earliest'
+}
+
+consumer = Consumer(conf)
+consumer.subscribe(['topic-new-data'])
 
 def consume_messages():
-    conf = {
-        'bootstrap.servers': 'kafka:9092',
-        'group.id': 'my-consumer-group',
-        'auto.offset.reset': 'earliest'
-    }
-
-    consumer = Consumer(conf)
-    consumer.subscribe(['topic-new-data'])
 
     messages = []
     try:
@@ -30,5 +30,3 @@ def consume_messages():
 
     print(f"Messages consommés: {messages}")  # Afficher les messages consommés
     return messages
-
-consume_messages()

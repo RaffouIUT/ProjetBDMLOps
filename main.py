@@ -33,14 +33,15 @@ username = "elastic"
 password = "password"
 es = Elasticsearch("http://elasticsearch:9200", http_auth=(username, password))
 
-@app.get("/")
-async def read_root():
-    return {"message": "Welcome to the API GitHub data finder"}
-
 def serialize_doc(doc):
     """Convertit _id de MongoDB en string pour JSON."""
     doc['_id'] = str(doc['_id'])
     return doc
+
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the API GitHub data finder"}
+
 
 @app.get("/mongodb_db")
 async def get_data():
