@@ -1,4 +1,5 @@
 from confluent_kafka import Consumer
+from training import run
 
 conf = {
     'bootstrap.servers': 'kafka:9092',
@@ -23,6 +24,8 @@ def consume_messages():
                 continue
             print(f"Received message: {msg.value().decode('utf-8')}")
             messages.append(msg.value().decode('utf-8'))
+            #lancement de la fonction de traitement
+            run(msg.value().decode('utf-8'))
     except KeyboardInterrupt:
         pass
     finally:
@@ -30,3 +33,6 @@ def consume_messages():
 
     print(f"Messages consommés: {messages}")  # Afficher les messages consommés
     return messages
+
+consume_messages()
+print("Fin de la consommation des messages")
