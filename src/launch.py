@@ -23,7 +23,7 @@ import os
 import numpy as np
 
 # Connexion à MongoDB
-client = MongoClient("mongodb://localhost:27017")
+client = MongoClient("mongodb://mongodb:27017")
 db = client["my_database"]
 collection = db["my_collection"]
 

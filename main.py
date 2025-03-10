@@ -146,7 +146,7 @@ async def add_data():
         repo["Date de sauvegarde"] = datetime.datetime.now()
 
     # Insérer les données dans la collection
-    collection.insert_many(data)
+    #collection.insert_many(data)
     data_list = list(data)
     item_list = [serialize_doc(item) for item in data_list]
 

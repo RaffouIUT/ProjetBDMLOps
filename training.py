@@ -106,7 +106,7 @@ def classify_new_data(new_data, model, cluster_centroids, cluster_themes):
 # Fonction de traitement et de mise à jour de MongoDB
 def kmeans_clustering_and_update_mongodb():
     # Connexion à MongoDB
-    client = MongoClient("mongodb://localhost:27017")
+    client = MongoClient("mongodb://mongodb:27017")
     db = client["my_database"]
     collection = db["my_collection"]
 
@@ -269,9 +269,28 @@ def run(new_repo):
     3️⃣ Recalcule le score de silhouette avec la nouvelle donnée.
     4️⃣ Compare les scores et met à jour si nécessaire.
     """
-    
+    # Conversion de la chaîne JSON en dictionnaire
+    new_repo = json.loads(new_repo)
+
+    # Afficher les données
+    print(new_repo)
+
+    # Afficher les entrées du dictionnaire
+    for repo in new_repo:
+        print(f"Nom du dépôt: {repo['Nom du dépôt']}")
+        print(f"Propriétaire: {repo['Propriétaire']}")
+        print(f"Date de création: {repo['Date de création']}")
+        print(f"URL: {repo['Url']}")
+        print(f"Langage principal: {repo['Langage principal']}")
+        print(f"Description: {repo['Description']}")
+        print(f"README: {repo['README']}")
+        print(f"Date de sauvegarde: {repo['Date de sauvegarde']}")
+        print(f"ID: {repo['_id']}")
+        print("------")
+
+
     # 🔹 Connexion MongoDB
-    client = MongoClient("mongodb://localhost:27017")
+    client = MongoClient("mongodb://mongodb:27017")
     db = client["my_database"]
     collection = db["my_collection"]
     silhouette_collection = db["silhouette_scores"]
