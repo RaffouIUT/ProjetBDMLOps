@@ -33,7 +33,7 @@ es = Elasticsearch("http://elasticsearch:9200", http_auth=(username, password))
 
 def serialize_doc(doc):
     """Convertit _id de MongoDB en string pour JSON."""
-    doc['_id'] = str(doc['_id'])
+    doc['_id'] = str(doc.get('_id', 'default_id'))
     return doc
 
 @app.get("/")
