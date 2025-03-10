@@ -16,15 +16,13 @@ Utilisation des README, langages, topics et descriptions des différents dépôt
 5. Dans l'application MongoDB Compass, rajoutez une base avec comme nom my_database et une collection avec comme nom my_collection et ajoutez le fichier JSON présent dans le dossier
 
 ### Utilisation
-1. Lancez au début le fichier launch.py
+1. Lancez au début le fichier launch.py : docker exec -it fastapi-app python launch.py
 
 2. Lancez le site avec l'adresse : localhost:8000
 
 3. Lancez la commande dans un terminal : docker exec -it fastapi-app python consumer.py
 
 4. Ajoutez /add_random_data dans l'adresse afin de rechercher un nouveau dépôt et l'ajouter dans la base
-
-5. Lancez le fichier training.py
 
 ### Potentiels problèmes
 
