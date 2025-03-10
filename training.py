@@ -17,7 +17,8 @@ import json
 
 
 # Charger un modèle de Sentence Transformers - embeddings plus riches
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('/app/models/all-MiniLM-L6-v2')
+
 
 # Fonction de nettoyage
 def clean_text(text):
@@ -81,13 +82,24 @@ def classify_new_data(new_data, model, cluster_centroids, cluster_themes):
     - embedding (list) : L'embedding de la nouvelle donnée.
     """
 
+
+    if isinstance(new_data, list):
+        for repo in new_data:
+            combined_text = (
+                repo["Nom du dépôt"] + " " +
+                (" ".join(repo["Topics"]) if isinstance(repo["Topics"], list) else "") + " " +
+                repo["Description"] + " " +
+                repo["README"]
+            )
+
+    else:
     # 1️⃣ Concaténer et nettoyer le texte
-    combined_text = (
-        new_data["Nom du dépôt"] + " " +
-        (" ".join(new_data["Topics"]) if isinstance(new_data["Topics"], list) else "") + " " +
-        new_data["Description"] + " " +
-        new_data["README"]
-    )
+        combined_text = (
+            new_data["Nom du dépôt"] + " " +
+            (" ".join(new_data["Topics"]) if isinstance(new_data["Topics"], list) else "") + " " +
+            new_data["Description"] + " " +
+            new_data["README"]
+        )
     cleaned_text = clean_text(combined_text)
 
     # 2️⃣ Générer l'embedding
@@ -273,7 +285,7 @@ def run(new_repo):
     new_repo = json.loads(new_repo)
 
     # Afficher les données
-    print(new_repo)
+    #print(new_repo)
 
     # Afficher les entrées du dictionnaire
     for repo in new_repo:
@@ -285,7 +297,6 @@ def run(new_repo):
         print(f"Description: {repo['Description']}")
         print(f"README: {repo['README']}")
         print(f"Date de sauvegarde: {repo['Date de sauvegarde']}")
-        print(f"ID: {repo['_id']}")
         print("------")
 
 
@@ -294,6 +305,9 @@ def run(new_repo):
     db = client["my_database"]
     collection = db["my_collection"]
     silhouette_collection = db["silhouette_scores"]
+
+    if isinstance(new_repo, list) and len(new_repo) == 1:
+        new_repo = new_repo[0]
 
     # 🔹 Récupérer les centroïdes et les thèmes des clusters
     cluster_centroids, cluster_themes = get_cluster_info_from_mongo(collection)

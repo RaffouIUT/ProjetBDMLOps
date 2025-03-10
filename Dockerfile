@@ -10,6 +10,9 @@ COPY requirements.txt requirements.txt
 # Installer les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Installer les dépendances NLTK
+RUN python -m nltk.downloader stopwords
+
 # Copier les fichiers de l'application
 COPY . .
 

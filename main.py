@@ -33,7 +33,7 @@ es = Elasticsearch("http://elasticsearch:9200", http_auth=(username, password))
 
 def serialize_doc(doc):
     """Convertit _id de MongoDB en string pour JSON."""
-    doc['_id'] = str(doc.get('_id', 'default_id'))
+    doc['_id'] = str(doc['_id'])
     return doc
 
 @app.get("/")
@@ -147,8 +147,8 @@ async def add_data():
 
     # Insérer les données dans la collection
     #collection.insert_many(data)
-    data_list = list(data)
-    item_list = [serialize_doc(item) for item in data_list]
+    item_list = list(data)
+    #item_list = [serialize_doc(item) for item in data_list]
 
     send_message(item_list)
 

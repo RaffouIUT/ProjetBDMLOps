@@ -51,7 +51,7 @@ def clean_text(text):
 df["cleaned_text"] = df["combined_text"].apply(clean_text)
 
 # Charger un modèle de Sentence Transformers - embeddings plus riches
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('/app/models/all-MiniLM-L6-v2')
 
 # Convertir les textes en embeddings
 df["embedding"] = list(model.encode(df["cleaned_text"].tolist()))
