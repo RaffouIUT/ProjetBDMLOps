@@ -56,7 +56,7 @@ model = SentenceTransformer('/app/models/all-MiniLM-L6-v2')
 # Convertir les textes en embeddings
 df["embedding"] = list(model.encode(df["cleaned_text"].tolist()))
 
-mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_tracking_uri("http://mlflow:5000")
 
 # Initialiser MLflow
 mlflow.set_experiment("KMeans Clustering Experiment")

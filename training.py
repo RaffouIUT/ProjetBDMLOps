@@ -141,7 +141,7 @@ def kmeans_clustering_and_update_mongodb():
     # Assurez-vous que les embeddings sont sous forme de listes
     df["embedding"] = df["embedding"].apply(lambda x: json.loads(x) if isinstance(x, str) else x)  # Assurez-vous que les embeddings sont en liste
 
-    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_tracking_uri("http://mlflow:5000")
 
     # Initialiser MLflow
     mlflow.set_experiment("KMeans Clustering Experiment")
